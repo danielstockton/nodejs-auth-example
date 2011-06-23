@@ -1,2 +1,2 @@
 =====================================
-Node.js Authentiation with MongoDB
+Node.js Authentication with MongoDB
