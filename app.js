@@ -5,8 +5,10 @@
 
 var express = require('express'),
     mongoose = require('mongoose'),
-    User = require('./models/user');
+    User;
 var app = module.exports = express.createServer();
+
+require("./models/user");
 
 // Configuration
 
@@ -38,6 +40,8 @@ app.configure('test', function() {
 
 db = mongoose.connect(app.set('db-uri'));
 
+User = mongoose.model("User");
+
 function requiresLogin(req, res, next) {
   if (req.session.user) {
     next();
@@ -68,9 +72,21 @@ app.post('/users', function(req, res) {
     });
   }
 
+<<<<<<< HEAD
   user.save(function(err) {
     if (err) return userSaveFailed();
     req.session.user = user
+=======
+  user.save(function(err, u) {
+    if (err) {
+        console.log(err);
+        return userSaveFailed();
+    } else {
+        console.log(u);
+        req.session.user = u;
+    }
+
+>>>>>>> 91c8f74d122c47492ab1c5183dc64407d18ae84f
     req.flash('info', 'Your account has been created');
     res.redirect('/');
   });
