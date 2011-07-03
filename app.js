@@ -5,7 +5,7 @@
 
 var express = require('express'),
     mongoose = require('mongoose'),
-    models = require('./models');
+    User = require('./models/user');
 var app = module.exports = express.createServer();
 
 // Configuration
@@ -19,7 +19,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
-  app.use(express.logger());
+  app.use(express.logger({ format: '\x1b[1m:method\x1b[0m \x1b[33m:url\x1b[0m :response-time ms' }))
 });
 
 app.configure('development', function(){
@@ -48,8 +48,6 @@ function requiresLogin(req, res, next) {
 
 // Users
 
-var User = mongoose.model('User');
-
 app.get('/users/new', function(req, res) {
   res.render('users/new.jade', {
     title: 'Sign Up',
@@ -57,7 +55,7 @@ app.get('/users/new', function(req, res) {
   });
 });
 
-app.post('/users.:format?', function(req, res) {
+app.post('/users', function(req, res) {
   var user = new User(req.body.user);
 
   function userSaveFailed() {
@@ -71,6 +69,7 @@ app.post('/users.:format?', function(req, res) {
     if (err) return userSaveFailed();
 
     req.flash('info', 'Your account has been created');
+    res.redirect('/');
   });
 });
 
