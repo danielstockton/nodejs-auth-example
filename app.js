@@ -48,6 +48,8 @@ function requiresLogin(req, res, next) {
 
 // Users
 
+User = mongoose.model('User');
+
 app.get('/users/new', function(req, res) {
   res.render('users/new.jade', {
     title: 'Sign Up',
@@ -60,6 +62,7 @@ app.post('/users', function(req, res) {
 
   function userSaveFailed() {
     req.flash('error', 'Account creation failed');
+    console.log('user save failed');
     res.render('users/new.jade', {
       locals: { user: user }
     });
@@ -67,7 +70,7 @@ app.post('/users', function(req, res) {
 
   user.save(function(err) {
     if (err) return userSaveFailed();
-
+    req.session.user = user
     req.flash('info', 'Your account has been created');
     res.redirect('/');
   });
