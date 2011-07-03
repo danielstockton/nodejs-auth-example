@@ -72,11 +72,6 @@ app.post('/users', function(req, res) {
     });
   }
 
-<<<<<<< HEAD
-  user.save(function(err) {
-    if (err) return userSaveFailed();
-    req.session.user = user
-=======
   user.save(function(err, u) {
     if (err) {
         console.log(err);
@@ -86,7 +81,6 @@ app.post('/users', function(req, res) {
         req.session.user = u;
     }
 
->>>>>>> 91c8f74d122c47492ab1c5183dc64407d18ae84f
     req.flash('info', 'Your account has been created');
     res.redirect('/');
   });

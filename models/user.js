@@ -44,8 +44,4 @@ User.pre('save', function(next) {
   }
 });
 
-<<<<<<< HEAD
-User = mongoose.model('User', User);
-=======
 mongoose.model('User', User);
->>>>>>> 91c8f74d122c47492ab1c5183dc64407d18ae84f
