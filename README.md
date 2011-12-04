@@ -1,4 +1,4 @@
-==Node.js Authentication with MongoDB
+# Node.js Authentication with MongoDB
 
     $ git clone git://github.com/danielstockton/nodejs-auth-example.git
     $ npm install
